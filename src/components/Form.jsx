@@ -19,11 +19,15 @@ export default function Form() {
   }
 
   /* Esercizio 5*/
+  function handleLogin(event) {
+    event.preventDefault();
+    console.log("Form submitted", data);
+  }
 
   return (
     <div>
       <h1>Accedi</h1>
-      <div className="forms">
+      <div className="forms" onSubmit={handleLogin}>
         <label className="titles">Username</label>
         <input
           name="username"
