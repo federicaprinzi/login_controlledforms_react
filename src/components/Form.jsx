@@ -13,21 +13,24 @@ export default function Form() {
     const checked = event.target.checked;
     const type = event.target.type;
 
-    setData((d) => {
-      return { ...d, [name]: type === "checkbox" ? checked : value };
+    setData((prevData) => {
+      return { ...prevData, [name]: type === "checkbox" ? checked : value };
     });
   }
 
   /* Esercizio 5*/
-  function handleLogin(event) {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleLogin = (event) => {
     event.preventDefault();
     console.log("Form submitted", data);
-  }
+    setSubmitted(true);
+  };
 
   return (
     <div>
       <h1>Accedi</h1>
-      <div className="forms" onSubmit={handleLogin}>
+      <form className="forms" onSubmit={handleLogin}>
         <label className="titles">Username</label>
         <input
           name="username"
@@ -43,7 +46,6 @@ export default function Form() {
           onChange={handleInputChange}
           placeholder="inserisci la password"
         />
-
         <label>
           <input
             name="session"
@@ -53,8 +55,11 @@ export default function Form() {
           />
           Ricordami
         </label>
-      </div>
-      <button disabled={!data.username || !data.password}>CONTINUA</button>
+        <button type="submit" disabled={!data.username || !data.password}>
+          CONTINUA
+        </button>
+      </form>
+      {submitted && <p>Accesso corretto</p>}
     </div>
   );
 }
